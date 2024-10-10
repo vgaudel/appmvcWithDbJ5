@@ -65,5 +65,11 @@ namespace appmvcWithDB.Controllers
                 return View("Error");
             }
         }
+
+        public IActionResult ListeTuto()
+        {
+            return View();
+        }
+
     }
 }
