@@ -1,0 +1,22 @@
+﻿@model appmvcWithDB.ViewModels.HomeViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>Je suis la vue index</div>
+    <ul>
+        <li>@Model.Message</li>
+        <li>@Model.Date.ToString("dd/MM/yyyy")</li>
+
+        <li>@Model.Sejour.Lieu</li>
+        <li>@Model.Sejour.Telephone</li>
+
+    </ul>
+</body>
+</html>
