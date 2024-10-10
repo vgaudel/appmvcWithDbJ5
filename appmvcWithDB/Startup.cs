@@ -30,7 +30,7 @@ namespace appmvcWithDB
 
             using(Dal dal = new Dal()) 
             { 
-                dal.DeleteCreateDatabase(); 
+                dal.InitializeDataBase(); 
             }
 
             app.UseRouting();

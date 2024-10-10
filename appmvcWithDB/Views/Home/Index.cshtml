@@ -1,7 +1,5 @@
 ﻿@model appmvcWithDB.ViewModels.HomeViewModel
-@{
-    Layout = null;
-}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,5 +16,8 @@
         <li>@Model.Sejour.Telephone</li>
 
     </ul>
+
+    @Html.Partial("PartialExample")
+
 </body>
 </html>

@@ -2,6 +2,7 @@
 using appmvcWithDB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace appmvcWithDB.Controllers
 {
@@ -9,16 +10,48 @@ namespace appmvcWithDB.Controllers
     {
         public IActionResult Index()
         {
-            Sejour sejour = new Sejour { Lieu = "Chambord", Telephone = "11111111" };
+            Dal myDal = new Dal();
 
-            HomeViewModel hvm = new HomeViewModel
+            Sejour sejour = myDal.ObtientTousLesSejours().FirstOrDefault(sejour => sejour.Lieu=="Quimper");
+            HomeViewModel myHVM = new HomeViewModel() { Message = "Let's go !", Date = DateTime.Now, Sejour = sejour};
+
+            return View(myHVM);
+        }
+
+        public IActionResult ModifierSejour(int id)
+        {
+            if (id > 0)
             {
-                Message = "Bonjour tout le monde",
-                Date = DateTime.Now,
-                Sejour = sejour
-            };
-
-            return View(hvm);
+                Dal dal = new Dal();
+                Sejour sejour = dal.ObtientTousLesSejours().FirstOrDefault(sejour => sejour.Id == id);
+                if (sejour != null)
+                {
+                    return View(sejour);
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+        [HttpPost]
+        public IActionResult ModifierSejour(int id,string Lieu, string Telephone)
+        {
+            if (id > 0)
+            {
+                Dal dal = new Dal();
+                
+                dal.ModifierSejour(id, Lieu, Telephone);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Error");
+            }
         }
     }
 }

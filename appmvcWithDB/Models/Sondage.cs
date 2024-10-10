@@ -7,6 +7,5 @@ namespace appmvcWithDB.Models
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public virtual List<Vote> Votes { get; set; }
     }
 }

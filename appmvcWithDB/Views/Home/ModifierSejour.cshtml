@@ -1,0 +1,29 @@
+﻿
+@model appmvcWithDB.Models.Sejour
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ModifierLieu</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <legend>Modifier un séjour : </legend>
+            @Html.LabelFor(m => Model.Lieu)
+            @Html.TextBoxFor(m => Model.Lieu)
+            @Html.ValidationMessageFor(m => Model.Lieu)
+            <br />
+            @Html.LabelFor(m => Model.Telephone)
+            @Html.TextBoxFor(m => Model.Telephone)
+            @Html.ValidationMessageFor(m => Model.Telephone)
+            <br />
+            <input type="submit" value="Modifier" />
+        </fieldset>
+    }
+</body>
+</html>
