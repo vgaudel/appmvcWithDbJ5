@@ -1,15 +1,17 @@
 ﻿using appmvcWithDB.Models;
 using appmvcWithDB.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 
 namespace appmvcWithDB.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index(int id)
-        {
+        { 
             Dal myDal = new Dal();
 
             Sejour sejour = myDal.ObtientTousLesSejours().FirstOrDefault(sejour => sejour.Id==id);

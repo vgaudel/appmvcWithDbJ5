@@ -7,5 +7,6 @@ namespace appmvcWithDB.Models
         public int Id { get; set; }
         [MaxLength(25)]
         public string Prenom { get; set; }
+        public string Password { get; set; }
     }
 }

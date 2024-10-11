@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace appmvcWithDB.Models
 {
@@ -93,5 +95,49 @@ namespace appmvcWithDB.Models
             _bddContext.Votes.Add(vote);
             _bddContext.SaveChanges();
         }
+
+
+
+        /******************************************************/
+        /*          Méthodes pour l'authentification          */
+        /******************************************************/
+        public int AjouterUtilisateur(string nom, string password)
+        {
+            string motDePasse = EncodeMD5(password);
+            Utilisateur user = new Utilisateur() { Prenom = nom, Password = motDePasse };
+            this._bddContext.Utilisateurs.Add(user);
+            this._bddContext.SaveChanges() ; 
+            return user.Id;
+        }
+
+        public Utilisateur Authentifier(string nom, string password)
+        {
+            string motDePasse = EncodeMD5(password);
+            Utilisateur user = this._bddContext.Utilisateurs.
+                FirstOrDefault(user => (user.Prenom==nom)&&(user.Password==motDePasse));
+            return user;
+        }
+
+        public Utilisateur ObtenirUtilisateur(int id)
+        {
+            return this._bddContext.Utilisateurs.Find(id);
+        }
+
+        public Utilisateur ObtenirUtilisateur(string idStr)
+        {
+            int id;
+            if (int.TryParse(idStr, out id))
+            {
+                return this.ObtenirUtilisateur(id);
+            }
+            return null;
+        }
+
+        private string EncodeMD5(string motDePasse)
+        {
+            string motDePasseSel = "TP_Authentification" + motDePasse + "ASP.NET MVC";
+            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
+        }
     }
 }
+
